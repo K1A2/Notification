@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Notification</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="button_login">sign in</string>
+    <string name="button_signup">sign up</string>
+    <string name="singup_hint_username">User name</string>
+    <string name="signupactivity_toast_blank">Please enter everything</string>
+    <string name="signupactivity_toast_sucess">Sign up successful</string>
+    <string name="signupactivity_progressdal_title">Please wait a moment</string>
+    <string name="signinactivity_toast_success">Sign in successful</string>
+</resources>

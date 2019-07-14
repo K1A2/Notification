@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:padding="18dp"
+        android:background="@color/coloractivitybackgroundDark"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+        <EditText
+                android:id="@+id/edit_login_email"
+                android:padding="10dp"
+                android:background="@drawable/edittext_dark"
+                android:layout_width="match_parent"
+                android:textColor="@color/textActivityNormal"
+                android:hint="@string/hint_email"
+                android:imeOptions="actionNext"
+                android:inputType="textWebEmailAddress"
+                android:layout_marginBottom="10dp"
+                android:textColorHint="@color/hintEdittextDark"
+                android:layout_height="wrap_content"/>
+
+        <EditText
+                android:id="@+id/edit_login_password"
+                android:padding="10dp"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_dark"
+                android:layout_width="match_parent"
+                android:textColor="@color/textActivityNormal"
+                android:hint="@string/hint_password"
+                android:textColorHint="@color/hintEdittextDark"
+                android:layout_height="wrap_content"/>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <Button
+                    android:background="@drawable/button_login"
+                    android:id="@+id/loginActivity_button_signIn"
+                    android:layout_width="match_parent"
+                    android:text="@string/button_login"
+                    android:layout_weight="1"
+                    android:layout_marginRight="4dp"
+                    android:textColor="@color/textActivityNormal"
+                    android:layout_height="wrap_content"/>
+
+            <Button
+                    android:background="@drawable/button_login"
+                    android:id="@+id/loginActivity_button_signUp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="match_parent"
+                    android:text="@string/button_signup"
+                    android:textColor="@color/textActivityNormal"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
