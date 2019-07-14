@@ -9,4 +9,9 @@
     <string name="signupactivity_toast_sucess">Sign up successful</string>
     <string name="signupactivity_progressdal_title">Please wait a moment</string>
     <string name="signinactivity_toast_success">Sign in successful</string>
+    <string name="selectmodeactivity_title">Select Mode</string>
+    <string name="selectview_title_receive">Receive Notifications</string>
+    <string name="selectview_title_send">Send Notifications</string>
+    <string name="selectview_sub_send">Share notifications on this phone with other devices</string>
+    <string name="selectview_sub_receive">Receive notification from this phone from another device</string>
 </resources>

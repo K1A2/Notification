@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.InputFilter
+import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -29,27 +30,32 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         auth = FirebaseAuth.getInstance()
-        auth.signOut()
 
         button_signup = findViewById(R.id.loginActivity_button_signUp) as Button
         button_signin = findViewById(R.id.loginActivity_button_signIn) as Button
         editText_id = findViewById(R.id.edit_login_email) as EditText
         editText_password = findViewById(R.id.edit_login_password) as EditText
 
+        editText_id.filters = arrayOf(inputFilter)
+        editText_password.filters = arrayOf(inputFilter)
+
         button_signin.setOnClickListener {
             val email = editText_id.text.toString()
             val password = editText_password.text.toString()
 
             if (!email.isEmpty() && !password.isEmpty()) {
-                auth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-
-                            Toast.makeText(LoginActivity@ this, getString(R.string.signinactivity_toast_success), Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText(LoginActivity@ this, "F", Toast.LENGTH_SHORT).show()
+                if (isValidEmail(email)&&isValidPasswd(password)) {
+                    auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this) { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(LoginActivity@ this, getString(R.string.signinactivity_toast_success), Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(LoginActivity@ this, "F", Toast.LENGTH_SHORT).show()
+                            }
                         }
-                    }
+                } else {
+
+                }
             } else {
                 Toast.makeText(LoginActivity@ this, getString(R.string.signupactivity_toast_blank), Toast.LENGTH_SHORT).show()
             }
@@ -83,6 +89,25 @@ class LoginActivity : AppCompatActivity() {
         }
         Toast.makeText(LoginActivity@ this, "영문, 숫자, !@#\\$%^&*. 만 입력 가능합니다.", Toast.LENGTH_SHORT).show()
         ""
+    }
+
+    private fun isValidPasswd(target: String): Boolean {
+        val p = Pattern.compile("(^.*(?=.{6,100})(?=.*[0-9])(?=.*[a-zA-Z]).*$)")
+
+        val m = p.matcher(target)
+        return if (m.find() && !target.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*".toRegex())) {
+            true
+        } else {
+            false
+        }
+    }
+
+    private fun isValidEmail(target:String): Boolean {
+        if (target == null || TextUtils.isEmpty(target)) {
+                return false
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches()
+        }
     }
 
     override fun onStop() {

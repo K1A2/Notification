@@ -9,4 +9,9 @@
     <string name="signupactivity_toast_sucess">회원가입 성공</string>
     <string name="signupactivity_progressdal_title">잠시만 기다려 주세요</string>
     <string name="signinactivity_toast_success">로그인 성공</string>
+    <string name="selectmodeactivity_title">모드 선택</string>
+    <string name="selectview_title_receive">알림 받기</string>
+    <string name="selectview_title_send">알림 보내기</string>
+    <string name="selectview_sub_send">이 폰의 알림을 다른 기기와 공유합니다</string>
+    <string name="selectview_sub_receive">다른 기기의 알림을 이 폰에서 받습니다</string>
 </resources>

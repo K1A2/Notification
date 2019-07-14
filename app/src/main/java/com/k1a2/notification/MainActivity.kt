@@ -1,29 +1,40 @@
 package com.k1a2.notification
 
-import android.app.Notification
-import android.app.NotificationManager
+import android.app.*
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.NotificationCompat
 import android.widget.Button
-import android.app.NotificationChannel
-import android.app.PendingIntent
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import android.widget.Toast
 import android.support.v4.app.NotificationManagerCompat
-
-
+import com.google.firebase.auth.FirebaseAuth
+import com.k1a2.notification.sharedprefernces.SharedPreferencesUtils
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var sharedPreference:SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        sharedPreference = getSharedPreferences(com.k1a2.notification.sharedprefernces.SharedPreferencesUtils.resporityNameDefault, Context.MODE_PRIVATE)
+
+        val auth = FirebaseAuth.getInstance()
+        if (auth.currentUser != null) {
+            Toast.makeText(this, auth.currentUser!!.email, Toast.LENGTH_SHORT).show()
+        }
+
+        if (sharedPreference.getString(SharedPreferencesUtils.KEY_ISNOTIFICATIUON, "") == "") {
+            startActivityForResult(Intent(MainActivity@this, SelectModeActivity::class.java), 1000)
+        }
 
         val isPermissionAllowed = isNotiPermissionAllowed()
 
@@ -108,6 +119,16 @@ class MainActivity : AppCompatActivity() {
                 notificationManager.notify(0,builder.build());
 
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 1000) {
+
+            }
+        } else {
+
         }
     }
 

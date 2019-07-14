@@ -2,7 +2,7 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:padding="18dp"
+        android:padding="20dp"
         android:background="@color/coloractivitybackgroundDark"
         android:layout_height="match_parent">
 
@@ -20,7 +20,7 @@
                 android:textColor="@color/textActivityNormal"
                 android:hint="@string/singup_hint_username"
                 android:imeOptions="actionNext"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="15dp"
                 android:textColorHint="@color/hintEdittextDark"
                 android:layout_height="wrap_content"/>
 
@@ -33,7 +33,7 @@
                 android:hint="@string/hint_email"
                 android:imeOptions="actionNext"
                 android:inputType="textWebEmailAddress"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="15dp"
                 android:textColorHint="@color/hintEdittextDark"
                 android:layout_height="wrap_content"/>
 
@@ -42,7 +42,7 @@
                 android:padding="10dp"
                 android:inputType="textPassword"
                 android:imeOptions="actionDone"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/edittext_dark"
                 android:layout_width="match_parent"
                 android:textColor="@color/textActivityNormal"
