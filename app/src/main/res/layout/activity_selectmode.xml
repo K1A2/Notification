@@ -24,7 +24,17 @@
     </LinearLayout>
 
     <com.k1a2.notification.view.SelectModeView
+            android:id="@+id/selectmode_select_card"
             android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <Button
+            android:text="@string/selectview_button_select"
+            android:id="@+id/selectmode_button_select"
+            android:textColor="@color/textActivityNormal"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

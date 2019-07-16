@@ -67,6 +67,7 @@ class SignUpActivity : AppCompatActivity() {
                             Toast.makeText(SignUpActivity@this, getString(R.string.signupactivity_toast_sucess), Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(SignUpActivity@this, "F", Toast.LENGTH_SHORT).show()
+                            progressDialog.dismiss()
                         }
                     }
             } else {

@@ -57,11 +57,40 @@ class SelectModeView : LinearLayout {
     private val onCardClickListener = View.OnClickListener { v ->
         when(v.id) {
             R.id.selectmode_card_receive -> {
-                Toast.makeText(con, "Receive", Toast.LENGTH_SHORT).show()
+                if (radio_send.isChecked) {
+                    radio_send.isChecked = false
+                }
+
+                if (!radio_recieve.isChecked) {
+                    radio_recieve.isChecked = true
+                }
             }
             R.id.selectmode_card_send -> {
-                Toast.makeText(con, "Send", Toast.LENGTH_SHORT).show()
+                if (!radio_send.isChecked) {
+                    radio_send.isChecked = true
+                }
+
+                if (radio_recieve.isChecked) {
+                    radio_recieve.isChecked = false
+                }
             }
+        }
+    }
+
+    public fun getSelectedCard() : Int {
+        val isSend = radio_send.isChecked
+        val isRecieve = radio_recieve.isChecked
+
+        if ((isRecieve&&isSend)||(!isRecieve&&!isSend)) {
+            return 0
+        } else if (isRecieve&&!isSend) {
+            //recieve
+            return 1
+        } else if (!isRecieve&&isSend) {
+            //send
+            return 2
+        } else {
+            return 0
         }
     }
 }

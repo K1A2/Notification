@@ -2,6 +2,7 @@ package com.k1a2.notification
 
 import android.app.*
 import android.content.Context
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.NotificationCompat
@@ -11,9 +12,11 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
+import android.preference.PreferenceManager
 import android.widget.Toast
 import android.support.v4.app.NotificationManagerCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.k1a2.notification.activity.IntentKey
 import com.k1a2.notification.sharedprefernces.SharedPreferencesUtils
 
 
@@ -25,23 +28,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        sharedPreference = getSharedPreferences(com.k1a2.notification.sharedprefernces.SharedPreferencesUtils.resporityNameDefault, Context.MODE_PRIVATE)
+        sharedPreference = PreferenceManager.getDefaultSharedPreferences(this)
 
         val auth = FirebaseAuth.getInstance()
         if (auth.currentUser != null) {
             Toast.makeText(this, auth.currentUser!!.email, Toast.LENGTH_SHORT).show()
         }
 
-        if (sharedPreference.getString(SharedPreferencesUtils.KEY_ISNOTIFICATIUON, "") == "") {
+        if (sharedPreference.getString(SharedPreferencesUtils.KEY_IS_MODE_SELECTED, "") == "") {
             startActivityForResult(Intent(MainActivity@this, SelectModeActivity::class.java), 1000)
         }
 
-        val isPermissionAllowed = isNotiPermissionAllowed()
+        //모드별 할일
 
-        if (!isPermissionAllowed) {
-            val intent = Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
-            startActivity(intent)
-        }
 
         (findViewById(R.id.notification) as Button).setOnClickListener {
             if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1){
@@ -125,7 +124,42 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 1000) {
+                val selected = data!!.getIntExtra(IntentKey.KEY_INTENT_SELECTED, 0)
 
+                when(selected) {
+                    0 -> {
+                        Toast.makeText(MainActivity@this, getString(R.string.mainactivity_toast_error), Toast.LENGTH_SHORT).show()
+                        startActivityForResult(Intent(MainActivity@this, SelectModeActivity::class.java), 1000)
+                    }
+                    1 -> {
+                        sharedPreference.edit().putString(SharedPreferencesUtils.KEY_IS_MODE_SELECTED, SharedPreferencesUtils.KEY_MODE_SELECTED_RECEIVE).commit()
+                    }//receive
+                    2 -> {
+                        val isPermissionAllowed = isNotiPermissionAllowed()
+
+                        if (!isPermissionAllowed) {
+
+                            val dialog = AlertDialog.Builder(MainActivity@this)
+                            dialog.setTitle(getString(R.string.selectmodeactivity_dialog_title))
+                            dialog.setMessage(getString(R.string.mainactivity_dialog_massage))
+                            dialog.setPositiveButton(getString(R.string.mainactivity_dialog_ok), DialogInterface.OnClickListener { dialog, which ->
+                                val intent = Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
+                                startActivity(intent)
+                                sharedPreference.edit().putString(SharedPreferencesUtils.KEY_IS_MODE_SELECTED, SharedPreferencesUtils.KEY_MODE_SELECTED_SEND).commit()
+                            })
+                            dialog.setNegativeButton(getString(R.string.mainactivity_dialog_deny), DialogInterface.OnClickListener { dialog, which ->
+                                Toast.makeText(MainActivity@this, getString(R.string.mainactivity_toast_deny), Toast.LENGTH_SHORT).show()
+                                sharedPreference.edit().putString(SharedPreferencesUtils.KEY_IS_MODE_SELECTED, SharedPreferencesUtils.KEY_MODE_SELECTED_RECEIVE).commit()
+                            })
+                            dialog.setOnCancelListener {
+                                Toast.makeText(MainActivity@this, getString(R.string.mainactivity_toast_deny), Toast.LENGTH_SHORT).show()
+                                sharedPreference.edit().putString(SharedPreferencesUtils.KEY_IS_MODE_SELECTED, SharedPreferencesUtils.KEY_MODE_SELECTED_RECEIVE).commit()
+                            }
+                            dialog.show()
+                            dialog.setCancelable(false)
+                        }
+                    }//send
+                }
             }
         } else {
 

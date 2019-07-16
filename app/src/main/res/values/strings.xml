@@ -13,5 +13,13 @@
     <string name="selectview_title_receive">Receive Notifications</string>
     <string name="selectview_title_send">Send Notifications</string>
     <string name="selectview_sub_send">Share notifications on this phone with other devices</string>
-    <string name="selectview_sub_receive">Receive notification from this phone from another device</string>
+    <string name="selectview_sub_receive">Only receive notification from this phone from another device</string>
+    <string name="selectview_button_select">Select</string>
+    <string name="selectmodeactivity_toast_select">Please select a mode</string>
+    <string name="mainactivity_toast_error">An error occurred. Please choose again.</string>
+    <string name="selectmodeactivity_dialog_title">Request Notification Permission</string>
+    <string name="mainactivity_dialog_massage">Notification permissions are required to read Notification</string>
+    <string name="mainactivity_dialog_ok">Allow</string>
+    <string name="mainactivity_dialog_deny">Deny</string>
+    <string name="mainactivity_toast_deny">You can\'t send Notification because of can\'t read Notification</string>
 </resources>

@@ -45,6 +45,13 @@ class LoginActivity : AppCompatActivity() {
 
             if (!email.isEmpty() && !password.isEmpty()) {
                 if (isValidEmail(email)&&isValidPasswd(password)) {
+                    val progressDialog = ProgressDialog(SignUpActivity@this)
+                    progressDialog.setCancelable(false)
+                    progressDialog.setCanceledOnTouchOutside(false)
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+                    progressDialog.setMessage(getString(R.string.signupactivity_progressdal_title))
+                    progressDialog.show()
+
                     auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(this) { task ->
                             if (task.isSuccessful) {
@@ -52,6 +59,7 @@ class LoginActivity : AppCompatActivity() {
                             } else {
                                 Toast.makeText(LoginActivity@ this, "F", Toast.LENGTH_SHORT).show()
                             }
+                            progressDialog.dismiss()
                         }
                 } else {
 
